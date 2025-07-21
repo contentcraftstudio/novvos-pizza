@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "María González",
+      "email": "maria@email.com",
+      "pizzasCompradas": 15,
+      "pizzaFavorita": "Margherita Clásica",
+      "ranking": ["Margherita Clásica", "Pepperoni Suprema", "Hawaiana Tropical"],
+      "joinDate": "2023-08-15"
+    },
+    {
+      "id": 2,
+      "name": "Carlos Rodríguez",
+      "email": "carlos@email.com",
+      "pizzasCompradas": 8,
+      "pizzaFavorita": "Novvo's Especial",
+      "ranking": ["Novvo's Especial", "Quattro Formaggi", "Pepperoni Suprema"],
+      "joinDate": "2023-10-22"
+    },
+    {
+      "id": 3,
+      "name": "Ana López",
+      "email": "ana@email.com",
+      "pizzasCompradas": 22,
+      "pizzaFavorita": "Vegetariana Deluxe",
+      "ranking": ["Vegetariana Deluxe", "Quattro Formaggi", "Margherita Clásica"],
+      "joinDate": "2023-06-10"
+    }
+  ]
+}
