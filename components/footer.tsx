@@ -3,9 +3,13 @@
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { Facebook, Instagram, Twitter } from "lucide-react"
+import { useEffect, useState } from "react"
 
 export function Footer() {
-  const currentYear = new Date().getFullYear()
+  const [currentYear, setCurrentYear] = useState<number>()
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear())
+  }, [])
 
   return (
     <footer className="bg-[#0B0B0B] text-white py-16">
@@ -108,7 +112,7 @@ export function Footer() {
           viewport={{ once: true }}
           className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400 space-y-2"
         >
-          <p>&copy; {currentYear} Novvo's Pizza. Todos los derechos reservados.</p>
+          <p>&copy; {currentYear ?? ''} Novvo's Pizza. Todos los derechos reservados.</p>
           <p>
             Desarrollado por{" "}
             <Link

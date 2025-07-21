@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -15,6 +15,20 @@ export default function AdminDashboard() {
   const [orders] = useState(ordersData.orders)
   const [users] = useState(usersData.users)
   const [menu] = useState(menuData.pizzas)
+
+  // Estado para la fecha de hoy y para los labels de fechas
+  const [today, setToday] = useState<string>("")
+  const [orderDates, setOrderDates] = useState<{[id: string]: string}>({})
+
+  useEffect(() => {
+    const now = new Date()
+    setToday(now.toDateString())
+    const dates: {[id: string]: string} = {}
+    ordersData.orders.forEach(order => {
+      dates[order.id] = new Date(order.timestamp).toLocaleDateString()
+    })
+    setOrderDates(dates)
+  }, [])
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -44,7 +58,7 @@ export default function AdminDashboard() {
 
   const totalVentas = orders.reduce((sum, order) => sum + order.total, 0)
   const pedidosHoy = orders.filter(
-    (order) => new Date(order.timestamp).toDateString() === new Date().toDateString(),
+    (order) => new Date(order.timestamp).toDateString() === today,
   ).length
 
   return (
@@ -216,7 +230,7 @@ export default function AdminDashboard() {
                       <div key={order.id} className="flex justify-between items-center p-3 bg-white/5 rounded">
                         <div>
                           <p className="text-white font-medium">{order.customer}</p>
-                          <p className="text-gray-400 text-sm">{new Date(order.timestamp).toLocaleDateString()}</p>
+                          <p className="text-gray-400 text-sm">{orderDates[order.id]}</p>
                         </div>
                         <p className="text-[#FFA640] font-bold">${order.total.toFixed(2)}</p>
                       </div>
