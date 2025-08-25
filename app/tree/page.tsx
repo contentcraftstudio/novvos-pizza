@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Instagram, MessageCircle, ShoppingCart, PartyPopper, MapPin, Clock, Truck, Menu } from "lucide-react"
+import { OptimizedImage } from "@/components/optimized-image"
 
 // Types
 interface SocialLink {
@@ -198,9 +199,11 @@ export default function LinkTreePage() {
           className="text-center mb-8"
         >
           <div className="w-48 h-auto mx-auto mb-4">
-            <img
+            <OptimizedImage
               src="/images/novvos-logo.svg"
               alt="Novvo's Taste"
+              width={192}
+              height={192}
               className="w-full h-auto object-contain"
             />
           </div>
