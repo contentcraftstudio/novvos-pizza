@@ -46,7 +46,7 @@ export default function LoginPage() {
       >
         <div className="text-center mb-8">
           <Link href="/">
-            <img src="/images/novvos-logo.svg" alt="Novvo's Pizza" className="w-48 h-auto mx-auto mb-2" />
+            <img src="/images/novvos-logo.svg" alt="Novvo's Taste" className="w-48 h-auto mx-auto mb-2" />
           </Link>
           <p className="text-white">Accede a tu cuenta de pizza</p>
         </div>

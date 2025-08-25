@@ -11,7 +11,7 @@
     },
     {
       "id": 2,
-      "name": "HAWAYANA",
+      "name": "HAWAIANA",
       "description": "Piña, queso, jamón, finas hierbas",
       "price": 25000,
       "originalPrice": 28000,
@@ -20,15 +20,6 @@
     },
     {
       "id": 3,
-      "name": "AHUMADA",
-      "description": "Cerdo, pollo, carne, chorizo y butifarra",
-      "price": 25000,
-      "originalPrice": 28000,
-      "image": "/placeholder.svg?height=300&width=300",
-      "category": "premium"
-    },
-    {
-      "id": 4,
       "name": "QUILLERA",
       "description": "Butifarra, pimentón verde, maíz tierno, chorizo de res y queso parmesano",
       "price": 25000,
@@ -37,7 +28,7 @@
       "category": "especiales"
     },
     {
-      "id": 5,
+      "id": 4,
       "name": "AMARANTTA",
       "description": "Base de salsa blanca, pollo, espinaca de oleo, champiñones al vino, queso tilsit, queso parmesano",
       "price": 25000,
@@ -46,22 +37,13 @@
       "category": "gourmet"
     },
     {
-      "id": 6,
+      "id": 5,
       "name": "4 QUESOS",
       "description": "Mozzarella, holandés, tilsit y parmesano, y queso de búfala",
       "price": 25000,
       "originalPrice": 28000,
       "image": "/placeholder.svg?height=300&width=300",
       "category": "gourmet"
-    },
-    {
-      "id": 7,
-      "name": "NOVVOS",
-      "description": "Base abierta (Pollo, carne desmechada, chorizo, butifarra, maíz, pimentón y cebolla caramelizada, queso de búfala)",
-      "price": 25000,
-      "originalPrice": 28000,
-      "image": "/placeholder.svg?height=300&width=300",
-      "category": "signature"
     }
   ]
 }

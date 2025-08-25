@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { Facebook, Instagram, Twitter } from "lucide-react"
+import { Instagram, Truck, MessageCircle } from "lucide-react"
 import { useEffect, useState } from "react"
 
 export function Footer() {
@@ -21,9 +21,9 @@ export function Footer() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <img src="/images/novvos-logo.svg" alt="Novvo's Pizza" className="w-32 h-auto mb-4" />
+            <img src="/images/novvos-logo.svg" alt="Novvos Pizza" className="w-32 h-auto mb-4" />
             <p className="text-gray-300 text-sm">
-              La mejor pizza individual de la ciudad. Sabores únicos, calidad premium.
+              Novvo's Taste - Experiencias únicas en cada bocado. Calidad premium en k-box artesanales.
             </p>
           </motion.div>
 
@@ -91,15 +91,33 @@ export function Footer() {
             viewport={{ once: true }}
           >
             <h4 className="font-bold mb-4">Síguenos</h4>
-            <div className="flex space-x-4">
-              <Link href="#" className="text-gray-300 hover:text-[#FFA640] transition-colors">
-                <Facebook className="w-6 h-6" />
+            <div className="flex flex-col space-y-4">
+              <Link 
+                href="https://www.instagram.com/novvostaste/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-gray-300 hover:text-[#FFA640] transition-colors"
+              >
+                <Instagram className="w-5 h-5" />
+                <span>@novvostaste</span>
               </Link>
-              <Link href="#" className="text-gray-300 hover:text-[#FFA640] transition-colors">
-                <Instagram className="w-6 h-6" />
+              <Link 
+                href="https://wa.me/573245256142" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-gray-300 hover:text-[#25D366] transition-colors"
+              >
+                <MessageCircle className="w-5 h-5" />
+                <span>+57 324 525 6142</span>
               </Link>
-              <Link href="#" className="text-gray-300 hover:text-[#FFA640] transition-colors">
-                <Twitter className="w-6 h-6" />
+              <Link 
+                href="https://www.rappi.com.co/restaurantes/delivery/335245-novvo-s-taste?utm_source=app&utm_medium=deeplink&utm_campaign=share" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-gray-300 hover:text-[#00E59A] transition-colors"
+              >
+                <Truck className="w-5 h-5" />
+                <span>Pide por Delivery</span>
               </Link>
             </div>
           </motion.div>
@@ -112,7 +130,7 @@ export function Footer() {
           viewport={{ once: true }}
           className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400 space-y-2"
         >
-          <p>&copy; {currentYear ?? ''} Novvo's Pizza. Todos los derechos reservados.</p>
+          <p>&copy; {currentYear ?? ''} Novvo's Taste. Todos los derechos reservados.</p>
           <p>
             Desarrollado por{" "}
             <Link

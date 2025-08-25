@@ -1,28 +1,92 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Instagram, Facebook, MessageCircle, ShoppingCart, PartyPopper } from "lucide-react"
+import { Instagram, MessageCircle, ShoppingCart, PartyPopper, MapPin, Clock, Truck, Menu } from "lucide-react"
 
-// Icono personalizado para TikTok
-const TikTokIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor">
-    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43V7.83a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.26z" />
+// Types
+interface SocialLink {
+  icon: React.ReactNode;
+  label: string;
+  action: () => void;
+  color: string;
+}
+
+interface MainButton {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  color: string;
+  textColor: string;
+  action: () => void;
+  available: boolean;
+}
+
+interface InfoCardProps {
+  icon: React.ReactNode;
+  title: string;
+  value: string;
+}
+
+// Custom Icons
+const RappiIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    className="w-5 h-5"
+    fill="currentColor"
+  >
+    <path d="M12 15a2 2 0 0 1-2-2V6.5a2 2 0 0 1 4 0V13a2 2 0 0 1-2 2m0-9a.5.5 0 0 0-.5.5V13a.5.5 0 0 0 1 0V6.5A.5.5 0 0 0 12 6m7 4.5a.5.5 0 0 0-.5.5v3a4.5 4.5 0 0 1-9 0v-1a.5.5 0 0 0-1 0v1a5.5 5.5 0 0 0 5 5.48V20h-1.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H14v-1.02A5.5 5.5 0 0 0 19.5 14v-3a.5.5 0 0 0-.5-.5" />
   </svg>
 )
 
-// Icono personalizado para Rappi
-const RappiIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor">
-    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-  </svg>
+// Components
+const InfoCard = ({ icon, title, value }: InfoCardProps) => (
+  <div className="flex items-center space-x-3">
+    <div className="p-2 bg-gray-700/50 rounded-lg text-[#FFA640]">
+      {icon}
+    </div>
+    <div>
+      <p className="text-xs text-gray-300">{title}</p>
+      <p className="text-sm font-medium">{value}</p>
+    </div>
+  </div>
+)
+
+const LinkCard = ({
+  icon,
+  title,
+  description,
+  color,
+  textColor,
+  action,
+  available = true
+}: MainButton) => (
+  <motion.button
+    whileHover={{ scale: 1.02 }}
+    whileTap={{ scale: 0.98 }}
+    onClick={action}
+    disabled={!available}
+    className={`w-full py-4 px-6 rounded-xl flex items-center space-x-3 ${color} ${textColor} font-medium text-base transition-all hover:shadow-lg ${!available ? 'opacity-60' : ''}`}
+  >
+    <span className="text-xl">{icon}</span>
+    <div className="text-left">
+      <div className="font-semibold">{title}</div>
+      <div className="text-xs font-normal opacity-90">{description}</div>
+    </div>
+  </motion.button>
 )
 
 export default function LinkTreePage() {
   const [showModal, setShowModal] = useState(false)
   const [modalMessage, setModalMessage] = useState("")
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const openModal = (message: string) => {
     setModalMessage(message)
@@ -40,182 +104,198 @@ export default function LinkTreePage() {
   }
 
   const openWhatsAppDirect = () => {
-    openWhatsApp("¡Hola! Me gustaría hacer un pedido de Novvo's Pizza 🍕")
+    openWhatsApp("¡Hola! Me gustaría hacer un pedido de Novvo's Taste 🍕")
   }
 
   const openCatering = () => {
     openWhatsApp(
-      "¡Hola! Estoy interesado/a en contratar el servicio de catering de Novvo's Pizza para mi fiesta/evento. Me gustaría conocer más detalles sobre opciones, precios y disponibilidad. ¡Gracias! 🍕🎉",
+      "¡Hola! Estoy interesado/a en contratar el servicio de catering de Novvo's Taste para mi fiesta/evento. Me gustaría conocer más detalles sobre opciones, precios y disponibilidad. ¡Gracias! 🍕🎉"
     )
   }
 
-  const socialButtons = [
+  const openRappi = () => {
+    window.open("https://www.rappi.com.co/restaurantes/delivery/335245-novvo-s-taste", "_blank")
+  }
+
+  const socialLinks: SocialLink[] = [
     {
-      icon: <Instagram className="w-6 h-6" />,
-      color: "bg-gradient-to-r from-purple-500 to-pink-500",
+      icon: <Instagram className="w-5 h-5" />,
+      label: "@novvostaste",
       action: openInstagram,
+      color: "text-pink-500 hover:text-pink-400"
+    },
+    {
+      icon: <MessageCircle className="w-5 h-5" />,
+      label: "WhatsApp",
+      action: openWhatsAppDirect,
+      color: "text-green-500 hover:text-green-400"
+    }
+  ]
+
+  const mainButtons: MainButton[] = [
+    {
+      icon: <Menu className="w-5 h-5" />,
+      title: "Ver menú",
+      description: "Explora nuestra deliciosa selección",
+      color: "bg-gradient-to-r from-[#FFA640] to-[#FF8C00]",
+      textColor: "text-black",
+      action: () => (window.location.href = "/#menu"),
       available: true,
     },
     {
-      icon: <Facebook className="w-6 h-6" />,
-      color: "bg-blue-600",
-      action: () => openModal("Facebook"),
-      available: false,
+      icon: <ShoppingCart className="w-5 h-5" />,
+      title: "Pedir por Rappi",
+      description: "Ordena a través de la app de Rappi",
+      color: "bg-red-600 hover:bg-red-700",
+      textColor: "text-white",
+      action: openRappi,
+      available: true,
     },
     {
-      icon: <TikTokIcon />,
-      color: "bg-black",
-      action: () => openModal("TikTok"),
-      available: false,
-    },
-    {
-      icon: <MessageCircle className="w-6 h-6" />,
-      color: "bg-green-500",
+      icon: <MessageCircle className="w-5 h-5" />,
+      title: "Pedir por WhatsApp",
+      description: "Haz tu pedido directamente por WhatsApp",
+      color: "bg-green-500 hover:bg-green-600",
+      textColor: "text-white",
       action: openWhatsAppDirect,
       available: true,
     },
   ]
 
-  const mainButtons = [
+  const infoCards = [
     {
-      icon: <ShoppingCart className="w-6 h-6" />,
-      title: "Hacer Nuevo Pedido",
-      description: "Explora nuestro menú y haz tu pedido",
-      color: "bg-[#FFA640] hover:bg-[#FF9520]",
-      textColor: "text-black",
-      action: () => (window.location.href = "/"),
-      available: true,
+      icon: <Clock className="w-5 h-5" />,
+      title: "Horario",
+      value: "Jue-Dom 4-9PM"
     },
     {
-      icon: <RappiIcon />,
-      title: "Pedir por Rappi",
-      description: "Ordena a través de la app de Rappi",
-      color: "bg-orange-500 hover:bg-orange-600",
-      textColor: "text-white",
-      action: () => openModal("Rappi"),
-      available: false,
+      icon: <MapPin className="w-5 h-5" />,
+      title: "Ubicación",
+      value: "Barranquilla, Colombia"
     },
     {
-      icon: <PartyPopper className="w-6 h-6" />,
-      title: "Catering Para Fiestas",
-      description: "Perfecto para eventos y celebraciones",
-      color: "bg-purple-600 hover:bg-purple-700",
-      textColor: "text-white",
-      action: openCatering,
-      available: true,
+      icon: <Clock className="w-5 h-5" />,
+      title: "Tiempo de Entrega",
+      value: "10-20 min aprox."
     },
+    {
+      icon: <Truck className="w-5 h-5" />,
+      title: "Domicilios",
+      value: "Zonas aledañas"
+    }
   ]
 
-  const [currentYear, setCurrentYear] = useState<number>()
-  useEffect(() => {
-    setCurrentYear(new Date().getFullYear())
-  }, [])
+  if (!isMounted) return null
 
   return (
-    <div className="min-h-screen bg-[#0B0B0B] flex flex-col items-center justify-center p-4 max-w-md mx-auto">
-      {/* Logo */}
-      <motion.div
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="mb-8"
-      >
-        <img src="/images/novvos-logo.svg" alt="Novvo's Pizza" className="w-48 h-auto" />
-      </motion.div>
+    <div className="min-h-screen bg-black text-white">
+      <div className="container mx-auto px-4 py-8 max-w-md">
+        {/* Profile Section */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-8"
+        >
+          <div className="w-48 h-auto mx-auto mb-4">
+            <img
+              src="/images/novvos-logo.svg"
+              alt="Novvo's Taste"
+              className="w-full h-auto object-contain"
+            />
+          </div>
+          <p className="text-gray-300 mb-6">K-box artesanal con ingredientes premium</p>
+          
+          {/* Social Links */}
+          <div className="flex justify-center space-x-6 mb-8">
+            {socialLinks.map((social, index) => (
+              <motion.button
+                key={index}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className={`flex items-center space-x-2 ${social.color} transition-colors`}
+                onClick={social.action}
+              >
+                {social.icon}
+                <span className="text-sm">{social.label}</span>
+              </motion.button>
+            ))}
+          </div>
+        </motion.div>
 
-      {/* Redes Sociales */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="flex space-x-4 mb-8"
-      >
-        {socialButtons.map((social, index) => (
-          <motion.button
-            key={index}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={social.action}
-            className={`${social.color} p-3 rounded-full text-white shadow-lg transition-all duration-300 ${
-              !social.available ? "opacity-60" : ""
-            }`}
-          >
-            {social.icon}
-          </motion.button>
-        ))}
-      </motion.div>
-
-      {/* Botones Principales */}
-      <div className="w-full space-y-4">
-        {mainButtons.map((button, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-          >
-            <Card
-              className={`bg-white/5 border-white/10 hover:bg-white/10 transition-all duration-300 cursor-pointer ${
-                !button.available ? "opacity-60" : ""
-              }`}
-              onClick={button.action}
+        {/* Info Cards */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="grid grid-cols-2 gap-4 mb-8"
+        >
+          {infoCards.map((card, index) => (
+            <div 
+              key={index}
+              className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 hover:border-[#FFA640]/30 transition-colors"
             >
-              <CardContent className="p-4">
-                <div className="flex items-center space-x-4">
-                  <div className={`${button.color} p-3 rounded-full ${button.textColor} flex-shrink-0`}>
-                    {button.icon}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-white font-bold text-lg mb-1">{button.title}</h3>
-                    <p className="text-gray-300 text-sm">{button.description}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
+              <InfoCard 
+                icon={card.icon}
+                title={card.title}
+                value={card.value}
+              />
+            </div>
+          ))}
+        </motion.div>
 
-      {/* Footer */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.8 }}
-        className="mt-8 text-center"
-      >
-        <p className="text-gray-400 text-sm">La libertad de sabores 🍕</p>
-        <p className="text-gray-500 text-xs mt-2">© {currentYear ?? ''} Novvo's Pizza</p>
-      </motion.div>
+        {/* Main Buttons */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="space-y-4 mb-8"
+        >
+          {mainButtons.map((button, index) => (
+            <LinkCard
+              key={index}
+              icon={button.icon}
+              title={button.title}
+              description={button.description}
+              color={button.color}
+              textColor={button.textColor}
+              action={button.action}
+              available={button.available}
+            />
+          ))}
+        </motion.div>
 
-      {/* Modal "Próximamente" */}
-      {showModal && (
-        <motion.div
+        {/* Footer */}
+        <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
-          onClick={() => setShowModal(false)}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-center text-gray-500 text-xs"
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="bg-white rounded-2xl p-6 max-w-sm w-full mx-4"
-            onClick={(e) => e.stopPropagation()}
+          <p>© {new Date().getFullYear()} Novvo's Taste. Todos los derechos reservados.</p>
+        </motion.div>
+      </div>
+
+      {/* Modal */}
+      {showModal && (
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50"
+        >
+          <motion.div 
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="bg-gray-800 rounded-xl p-6 max-w-sm w-full border border-gray-700/50"
           >
-            <div className="text-center">
-              <div className="text-4xl mb-4">🚀</div>
-              <h3 className="text-xl font-bold text-[#0B0B0B] mb-2">¡Próximamente!</h3>
-              <p className="text-gray-600 mb-6">
-                Estamos trabajando para traerte {modalMessage} muy pronto. ¡Mantente atento a nuestras redes sociales!
-              </p>
-              <Button
-                onClick={() => setShowModal(false)}
-                className="bg-[#FFA640] hover:bg-[#FF9520] text-black font-bold w-full"
-              >
-                Entendido
-              </Button>
-            </div>
+            <h3 className="text-xl font-bold mb-4">¡Próximamente!</h3>
+            <p className="mb-6 text-gray-300">{modalMessage} estará disponible próximamente.</p>
+            <button
+              onClick={() => setShowModal(false)}
+              className="w-full bg-gradient-to-r from-[#FFA640] to-[#FF8C00] text-black py-3 px-4 rounded-lg font-medium hover:opacity-90 transition-opacity"
+            >
+              Entendido
+            </button>
           </motion.div>
         </motion.div>
       )}

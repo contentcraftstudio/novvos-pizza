@@ -1,6 +1,6 @@
-# Novvos Pizza
+# Novvo's Taste
 
-Este es un proyecto de ejemplo para una pizzería, construido con Next.js, Tailwind CSS y React.
+Este es un proyecto para Novvo's Taste, una pizzería construida con Next.js, Tailwind CSS y React.
 
 ## Características
 - Menú interactivo
@@ -12,8 +12,8 @@ Este es un proyecto de ejemplo para una pizzería, construido con Next.js, Tailw
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/tu-usuario/novvos-pizza.git
-   cd novvos-pizza
+   git clone https://github.com/tu-usuario/novvos-taste.git
+   cd novvos-taste
    ```
 2. Instala las dependencias:
    ```bash

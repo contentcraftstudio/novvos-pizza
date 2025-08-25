@@ -42,7 +42,7 @@ export default function ProfilePage() {
         >
           <div>
             <Link href="/">
-              <img src="/images/novvos-logo.svg" alt="Novvo's Pizza" className="w-32 h-auto" />
+              <img src="/images/novvos-logo.svg" alt="Novvo's Taste" className="w-32 h-auto" />
             </Link>
             <p className="text-white">Mi Perfil</p>
           </div>
